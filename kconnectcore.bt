@@ -1,0 +1,11 @@
+tracepoint:sock:inet_sock_set_state
+/args->newstate == 2 && args->protocol == 6/
+{
+    printf("%d|%s|TCP|%s|%d|%d\n",
+        pid,
+        comm,
+        ntop(args->family, args->daddr),
+        args->dport,
+        args->sport
+    );
+}
